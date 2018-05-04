@@ -34,7 +34,8 @@ class Board extends React.Component {
   }
   renderSquare(i) {
     //look at the state of each square in the square array
-    return <Square value={this.state.squares[i]} />;
+    // passing down two props from Board to Square --> value and onClick
+    return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)}/>;
   }
 
   render() {
