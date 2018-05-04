@@ -23,8 +23,18 @@ class Square extends React.Component {
 }
 
 class Board extends React.Component {
+  // store the state in the Board component instead of in each Square
+  // this will allow the Board to tell each Square what to display
+  // similar to how we made each square display its index earlier
+  constructor (props){
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null)
+    };
+  }
   renderSquare(i) {
-    return <Square value={i} />;
+    //look at the state of each square in the square array
+    return <Square value={this.state.squares[i]} />;
   }
 
   render() {
