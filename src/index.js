@@ -26,7 +26,6 @@ class Board extends React.Component {
     const squares = this.state.squares.slice();
     // toggle xIsNext with each move
     squares[i] = this.state.xIsNext ? 'X' : 'O'
-    squares[i] = 'X';
     // xIsNext --> flip the boolean value and save the state
     this.setState({squares: squares, xIsNext: !this.state.xIsNext});
   }
