@@ -24,6 +24,10 @@ class Board extends React.Component {
   handleClick(i) {
     // call .slice() to copy the squares array instead of mutating the existing array
     const squares = this.state.squares.slice();
+    // tells the Board to return early and ignore the click if someone has already won the game OR if a square is already filled
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
     // toggle xIsNext with each move
     squares[i] = this.state.xIsNext ? 'X' : 'O'
     // xIsNext --> flip the boolean value and save the state
@@ -36,8 +40,15 @@ class Board extends React.Component {
   }
 
   render() {
+    // call function to check if either user has won the game
+    const winner = calculateWinner(this.state.squares);
     // change the status text in Board's render to display who is next
-    const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    let status;
+    if (winner) {
+      status = "Winner: " + winner;
+    } else {
+      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    }
 
     return (
       <div>
