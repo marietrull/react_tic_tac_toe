@@ -18,15 +18,17 @@ class Board extends React.Component {
   // similar to how we made each square display its index earlier
   constructor (props){
     super(props);
-    this.state = {
-      squares: Array(9).fill(null)
-    };
+    // xIsNext --> default the first move to be 'X'
+    this.state = {squares: Array(9).fill(null), xIsNext: true};
   }
   handleClick(i) {
     // call .slice() to copy the squares array instead of mutating the existing array
     const squares = this.state.squares.slice();
+    // toggle xIsNext with each move
+    squares[i] = this.state.xIsNext ? 'X' : 'O'
     squares[i] = 'X';
-    this.setState({squares: squares});
+    // xIsNext --> flip the boolean value and save the state
+    this.setState({squares: squares, xIsNext: !this.state.xIsNext});
   }
   renderSquare(i) {
     //look at the state of each square in the square array
@@ -35,7 +37,8 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Next player: X';
+    // change the status text in Board's render to display who is next
+    const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
 
     return (
       <div>
