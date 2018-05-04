@@ -3,20 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
-  constructor (props){
-    // initiates "this" --> allows us to use "this"
-    // Allows use to acces the parent component's props
-    super(props);
-    this.state = {
-      // will cause render() to give us a blank square. If we had value: 3, all of the squares would have 3 in them.
-      value: null,
-    }
-  }
+  // removed constructor definition from square because it doesn't have state anymore
+  // Square no longer keeps its own state --> receives its value from the parent Board and informs its parent when it's clicked
   render() {
     return (
-      // sets the value of the square to 'X' --> user will see X when they click
-      <button className="square" onClick={() => this.setState({value: 'X'})}>
-        {this.state.value}
+      // changing everything to props because we are not dealing with state here
+      // this gets called on line 31 --> this is where we directly alter the state
+      <button className="square" onClick={() => this.props.onClick({value: 'X'})}>
+        {this.props.value}
       </button>
     );
   }
@@ -31,6 +25,12 @@ class Board extends React.Component {
     this.state = {
       squares: Array(9).fill(null)
     };
+  }
+  handleClick(i) {
+    // call .slice() to copy the squares array instead of mutating the existing array
+    const squares = this.state.squares.slice();
+    squares[i] = 'X';
+    this.setState({squares: squares});
   }
   renderSquare(i) {
     //look at the state of each square in the square array
