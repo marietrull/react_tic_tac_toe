@@ -4,15 +4,19 @@ import './index.css';
 
 class Square extends React.Component {
   constructor (props){
+    // initiates "this" --> allows us to use "this"
+    // Allows use to acces the parent component's props
     super(props);
     this.state = {
+      // will cause render() to give us a blank square. If we had value: 3, all of the squares would have 3 in them.
       value: null,
     }
   }
   render() {
     return (
-      <button className="square" onClick={() => alert('click')}>
-        {this.props.value}
+      // sets the value of the square to 'X' --> user will see X when they click
+      <button className="square" onClick={() => this.setState({value: 'X'})}>
+        {this.state.value}
       </button>
     );
   }
