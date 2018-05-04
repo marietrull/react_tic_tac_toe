@@ -2,18 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
-  // removed constructor definition from square because it doesn't have state anymore
-  // Square no longer keeps its own state --> receives its value from the parent Board and informs its parent when it's clicked
-  render() {
-    return (
-      // changing everything to props because we are not dealing with state here
-      // this gets called on line 31 --> this is where we directly alter the state
-      <button className="square" onClick={() => this.props.onClick({value: 'X'})}>
-        {this.props.value}
-      </button>
-    );
-  }
+// replace Square class with functional component --> because Square nly consisted of a render method
+// we are writing a function that takes props and returns what should be rendered
+function Square(props) {
+  return (
+    <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
 }
 
 class Board extends React.Component {
